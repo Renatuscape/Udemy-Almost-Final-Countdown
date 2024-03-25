@@ -14,7 +14,7 @@ export default function TimerChallenge({ title, targetTime }) {
     function handleStart() {
         timer.current = setTimeout(() => {
             setTimerExpired(true);
-            dialog.current.showModal(); // opens the modal dialogue. Open can be used as a prop on dialog, but calling it programmatically gives a dark backdrop
+            dialog.current.open(); //using an imperative handle, we can call the custom method open, which we defined in ResultModal. 
         }, targetTime * 1000);
 
         setTimerStarted(true);
