@@ -1,4 +1,5 @@
 import { forwardRef, useImperativeHandle, useRef } from 'react';
+import { createPortal } from 'react-dom'; // react-dom library has features and functions allowing React to better interact with the DOM
 
 //forward ref must be wrapped around the component in order to allow ref forwarding. Ref is passed as a second parameter with forward Ref
 const ResultModal = forwardRef(function ResultModal(
@@ -17,7 +18,7 @@ const ResultModal = forwardRef(function ResultModal(
         };
     });
 
-    return (<dialog ref={dialog} className="result-modal" onClose={onReset}>
+    return createPortal (<dialog ref={dialog} className="result-modal" onClose={onReset}>
         {userLost && <h2>You lost</h2>}
         {!userLost && <h2>Your Score: {score}</h2>}
         <p>The target time was <strong>{targetTime} seconds.</strong></p>
@@ -26,7 +27,8 @@ const ResultModal = forwardRef(function ResultModal(
             {/* form with dialogue containing a button will automatically close the dialogue. */}
             <button>Close</button>
         </form>
-    </dialog>
+    </dialog>,
+    document.getElementById('modal') // portal takes the target location as a second argument
     );
 })
 
